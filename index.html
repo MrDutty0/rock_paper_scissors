@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+</head>
+
+<body>
+    <script>
+        function getComputerChoice (){
+            let randNum = Math.floor((Math.random() * 3));
+            let compChoice;
+
+            switch (randNum){
+                case 0:
+                    compChoice = "rock";
+                    break;
+
+                case 1:
+                    compChoice = "paper";
+                    break;
+
+                case 2:
+                    compChoice = "scissors";
+                    break;
+            }
+
+            return compChoice;
+        }
+    </script>
+</body>
+</html>
