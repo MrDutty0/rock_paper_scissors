@@ -29,40 +29,6 @@
             return compChoice;
         }
 
-        function playRound (playerSelection, computerSelection){
-            playerSelection = playerSelection.toLowerCase();
-            let playerWon;
-
-            if(playerSelection === "rock"){
-                if(computerSelection === "scissors") playerWon = true;
-                if(computerSelection === "paper") playerWon = false;
-            } 
-            else if (playerSelection === "paper"){
-                if(computerSelection === "rock") playerWon = true;
-                if(computerSelection === "scissors") playerWon = false;
-            }
-            else {
-                if(computerSelection === "paper") playerWon = true;
-                if(computerSelection === "rock") playerWon = false;
-            }
-            
-            computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
-            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-
-
-            if(playerWon === false){
-                resultText = `You Lose! ${computerSelection} beats ${playerSelection}`;
-            }
-            else if (playerWon === true){
-                resultText = `You Win! ${playerSelection} beats ${computerSelection}`;
-            }
-            else{
-                resultText = `It's a Tie!`;
-            }
-
-            return resultText;
-        }
-
         function validInput(input){
             return input === "rock" || input === "paper" || input === "scissors";
         }
@@ -71,49 +37,84 @@
             let stopPrompting = false;
             let userInput;
             do{
-                userInput = prompt("What is your move?").toLowerCase();
-                stopPrompting = validInput(userInput) || false;
+                userInput = prompt("What is your move?")
+                if (userInput === null){
+                    return -1; //"cancel" was pressed
+                }
+                userInput = userInput.toLowerCase();
+                stopPrompting = validInput(userInput);
+
                 if(!stopPrompting) alert("Wrong input");
             }while (!stopPrompting);
 
             return userInput;
         }
 
-        let playerWins = 0;
-        let computerWins = 0;
-
-        function addWinnerPoint(resultText){
-            if(resultText.includes("Lose")) computerWins++;
-            if(resultText.includes("Win")) playerWins++;
-        }
-
-        function game (){
-
-            for(let i = 0; i < 5; i++){
-                let resultText = playRound(getUserMove(), getComputerChoice());
-                console.log(resultText);
-
-                addWinnerPoint(resultText);
+        function outputFinalResult(computerWins, playerWins){
+            if(playerWins == computerWins){
+                console.log(`Humans and computers are equals`);
             }
-
-            if(computerWins + playerWins == 5){
+            else{
                 if(playerWins > computerWins){
                     console.log(`Humanity wins ${playerWins}:${computerWins}!`);
                 }
-                else{
-                    console.log(`Humanity lost ${computerWins}:${playerWins}`);
+                else if(playerWins < computerWins){
+                    console.log(`Humanity lost ${computerWins}:${playerWins}.`);
+                }
+                if(5 - computerWins - playerWins > 0){
+                    let numOfTies = 5 - computerWins - playerWins;
+                    console.log(`There were ${numOfTies} ties`);
                 }
             }
-            else{
-                if(playerWins == computerWins){
-                    console.log(`Humans and computers are equals`);
+        }
+
+        function game (){
+            let playerWins = 0;
+            let computerWins = 0;
+
+            for(let i = 0; i < 5; i++){
+                let userMove = getUserMove();
+                if(userMove === -1) return;
+
+                let resultText = playRound(userMove, getComputerChoice());
+                console.log(resultText);
+            }
+
+            outputFinalResult(computerWins, playerWins);
+
+            function playRound (playerSelection, computerSelection){
+                let playerWon;
+
+                if(playerSelection === "rock"){
+                    if(computerSelection === "scissors") playerWon = true;
+                    if(computerSelection === "paper") playerWon = false;
+                } 
+                else if (playerSelection === "paper"){
+                    if(computerSelection === "rock") playerWon = true;
+                    if(computerSelection === "scissors") playerWon = false;
                 }
-                else if(playerWins > computerWins){
-                    console.log(`Humanity wins ${playerWins}:${computerWins}, but made ${5 - computerWins - playerWins} ties`);
+                else {
+                    if(computerSelection === "paper") playerWon = true;
+                    if(computerSelection === "rock") playerWon = false;
                 }
-                else if(computerWins > playerWins){
-                    console.log(`Humanity lost ${computerWins}:${playerWins}, but made ${5 - computerWins - playerWins} ties`);
+
+                computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+                playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+
+
+                if(playerWon === false){
+                    computerWins++;
+                    resultText = `You Lose! ${computerSelection} beats ${playerSelection}`;
                 }
+                else if (playerWon === true){
+                    playerWins++;
+                    resultText = `You Win! ${playerSelection} beats ${computerSelection}`;
+                }
+                else{
+                    resultText = `It's a Tie!`;
+                }
+
+                return resultText;
             }
         }
 
