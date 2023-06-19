@@ -62,6 +62,62 @@
 
             return resultText;
         }
+
+        function validInput(input){
+            return input === "rock" || input === "paper" || input === "scissors";
+        }
+
+        function getUserMove(){
+            let stopPrompting = false;
+            let userInput;
+            do{
+                userInput = prompt("What is your move?").toLowerCase();
+                stopPrompting = validInput(userInput) || false;
+                if(!stopPrompting) alert("Wrong input");
+            }while (!stopPrompting);
+
+            return userInput;
+        }
+
+        let playerWins = 0;
+        let computerWins = 0;
+
+        function addWinnerPoint(resultText){
+            if(resultText.includes("Lose")) computerWins++;
+            if(resultText.includes("Win")) playerWins++;
+        }
+
+        function game (){
+
+            for(let i = 0; i < 5; i++){
+                let resultText = playRound(getUserMove(), getComputerChoice());
+                console.log(resultText);
+
+                addWinnerPoint(resultText);
+            }
+
+            if(computerWins + playerWins == 5){
+                if(playerWins > computerWins){
+                    console.log(`Humanity wins ${playerWins}:${computerWins}!`);
+                }
+                else{
+                    console.log(`Humanity lost ${computerWins}:${playerWins}`);
+                }
+            }
+            else{
+                if(playerWins == computerWins){
+                    console.log(`Humans and computers are equals`);
+                }
+                else if(playerWins > computerWins){
+                    console.log(`Humanity wins ${playerWins}:${computerWins}, but made ${5 - computerWins - playerWins} ties`);
+                }
+                else if(computerWins > playerWins){
+                    console.log(`Humanity lost ${computerWins}:${playerWins}, but made ${5 - computerWins - playerWins} ties`);
+                }
+            }
+        }
+
+        game();
     </script>
 </body>
 </html>
