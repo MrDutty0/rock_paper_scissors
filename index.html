@@ -28,6 +28,40 @@
 
             return compChoice;
         }
+
+        function playRound (playerSelection, computerSelection){
+            playerSelection = playerSelection.toLowerCase();
+            let playerWon;
+
+            if(playerSelection === "rock"){
+                if(computerSelection === "scissors") playerWon = true;
+                if(computerSelection === "paper") playerWon = false;
+            } 
+            else if (playerSelection === "paper"){
+                if(computerSelection === "rock") playerWon = true;
+                if(computerSelection === "scissors") playerWon = false;
+            }
+            else {
+                if(computerSelection === "paper") playerWon = true;
+                if(computerSelection === "rock") playerWon = false;
+            }
+            
+            computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+
+
+            if(playerWon === false){
+                resultText = `You Lose! ${computerSelection} beats ${playerSelection}`;
+            }
+            else if (playerWon === true){
+                resultText = `You Win! ${playerSelection} beats ${computerSelection}`;
+            }
+            else{
+                resultText = `It's a Tie!`;
+            }
+
+            return resultText;
+        }
     </script>
 </body>
 </html>
