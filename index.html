@@ -7,8 +7,88 @@
 </head>
 
 <body>
+    <div class="health">
+        <div class="health-bar">
+            <span class="health-status">
+                <span class="remaining-health">3</span>/3
+            </span>
+        </div>
+
+        <div class="health-bar">
+            <span class="health-status">
+                <span class="remaining-health">3</span>/3
+            </span>
+        </div>
+    </div>
+
+    <div class="game-window">
+        <div class="photo"><img src="./photos/" alt="Add alt"></div>
+
+        <div id="middle-info">
+
+            <div>
+                <span id="result">Choose your weapon</span>
+            </div>
+
+            <div id="buttons">
+                <button data-move = "rock">rock</button>
+                <button data-move = "papper">papper</button>
+                <button data-move = "scissors">scissors</button> 
+            </div>
+        </div>
+
+        <div class="photo"><img src="./photos/"></div>
+    </div>
+
     <script>
-        function getComputerChoice (){
+        const chooseMoveButton = document.getElementsByTagName("button");
+
+        Array.from(chooseMoveButton).forEach(button => {
+            button.addEventListener("click", (e) => {
+                const playerMove = e.target.getAttribute("data-move")
+                const computerMove = getComputerMove();
+
+                //display result
+                const resultDiv = document.getElementById("result");
+                const result = playRound(playerMove, computerMove);
+                resultDiv.textContent = result;
+            });
+        });
+
+        function playRound (playerMove, computerMove){
+            let playerWon;
+
+            if(playerMove === "rock"){
+                if(computerMove === "scissors") playerWon = true;
+                if(computerMove === "paper") playerWon = false;
+            } 
+            else if (playerMove === "paper"){
+                if(computerMove === "rock") playerWon = true;
+                if(computerMove === "scissors") playerWon = false;
+            }
+            else {
+                if(computerMove === "paper") playerWon = true;
+                if(computerMove === "rock") playerWon = false;
+            }
+
+            computerMove = computerMove.charAt(0).toUpperCase() + computerMove.slice(1);
+            playerMove = playerMove.charAt(0).toUpperCase() + playerMove.slice(1);
+
+
+            if(playerWon === false){
+                resultText = `You Lose! ${computerMove} beats ${playerMove}`;
+            }
+            else if (playerWon === true){
+                resultText = `You Win! ${playerMove} beats ${computerMove}`;
+            }
+            else{
+                resultText = `It's a Tie!`;
+            }
+
+            return resultText;
+        }
+
+        function getComputerMove (){
             let randNum = Math.floor((Math.random() * 3));
             let compChoice;
 
@@ -28,97 +108,6 @@
 
             return compChoice;
         }
-
-        function validInput(input){
-            return input === "rock" || input === "paper" || input === "scissors";
-        }
-
-        function getUserMove(){
-            let stopPrompting = false;
-            let userInput;
-            do{
-                userInput = prompt("What is your move?")
-                if (userInput === null){
-                    return -1; //"cancel" was pressed
-                }
-                userInput = userInput.toLowerCase();
-                stopPrompting = validInput(userInput);
-
-                if(!stopPrompting) alert("Wrong input");
-            }while (!stopPrompting);
-
-            return userInput;
-        }
-
-        function outputFinalResult(computerWins, playerWins){
-            if(playerWins == computerWins){
-                console.log(`Humans and computers are equals`);
-            }
-            else{
-                if(playerWins > computerWins){
-                    console.log(`Humanity wins ${playerWins}:${computerWins}!`);
-                }
-                else if(playerWins < computerWins){
-                    console.log(`Humanity lost ${computerWins}:${playerWins}.`);
-                }
-                if(5 - computerWins - playerWins > 0){
-                    let numOfTies = 5 - computerWins - playerWins;
-                    console.log(`There were ${numOfTies} ties`);
-                }
-            }
-        }
-
-        function game (){
-            let playerWins = 0;
-            let computerWins = 0;
-
-            for(let i = 0; i < 5; i++){
-                let userMove = getUserMove();
-                if(userMove === -1) return;
-
-                let resultText = playRound(userMove, getComputerChoice());
-                console.log(resultText);
-            }
-
-            outputFinalResult(computerWins, playerWins);
-
-            function playRound (playerSelection, computerSelection){
-                let playerWon;
-
-                if(playerSelection === "rock"){
-                    if(computerSelection === "scissors") playerWon = true;
-                    if(computerSelection === "paper") playerWon = false;
-                } 
-                else if (playerSelection === "paper"){
-                    if(computerSelection === "rock") playerWon = true;
-                    if(computerSelection === "scissors") playerWon = false;
-                }
-                else {
-                    if(computerSelection === "paper") playerWon = true;
-                    if(computerSelection === "rock") playerWon = false;
-                }
-
-                computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
-                playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-
-
-                if(playerWon === false){
-                    computerWins++;
-                    resultText = `You Lose! ${computerSelection} beats ${playerSelection}`;
-                }
-                else if (playerWon === true){
-                    playerWins++;
-                    resultText = `You Win! ${playerSelection} beats ${computerSelection}`;
-                }
-                else{
-                    resultText = `It's a Tie!`;
-                }
-
-                return resultText;
-            }
-        }
-
-        game();
     </script>
 </body>
 </html>
