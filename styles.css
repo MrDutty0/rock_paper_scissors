@@ -1,0 +1,102 @@
+body, html, .page-content {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+
+   background-color: rgb(255, 226, 203);
+}
+
+.photo img{
+    height: 500px;
+    width: auto;
+
+    background: radial-gradient(circle, rgba(255,226,203,1) 45%, rgba(251,198,156,1) 50%, rgba(255,226,203,1) 55%);
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-window {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 200px;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+#middle-info {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start;
+    gap: 180px;
+}
+
+.result-text {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 400px;
+    height: 150px;
+}
+
+#result {
+    font-size: 48px;
+}
+
+#buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: rgb(249, 189, 165);
+
+    border-radius: 5px;
+    font-size: 18px;
+    width: 10ch;
+    height: 60px;
+
+    border-style: solid;
+}
+
+.clicking {
+    transform: scale(1.1);
+    transition: 0.13s ease-in-out;
+}
+
+.health {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 210px;
+}
+
+.health-background {
+    margin-top: 35px;
+}
+
+progress {
+    -webkit-appearance: none;
+    height: 40px;
+    width: 270px;
+    border: 3.5px solid rgb(206, 104, 120);
+    border-radius: 30px;
+}
+
+::-webkit-progress-bar {
+    background-color: rgb(255, 207, 214);
+
+    border-radius: 30px;
+} 
+
+::-webkit-progress-value {
+    background-color: rgb(255, 97, 120);
+
+    border-radius: 30px;
+} 

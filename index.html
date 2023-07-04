@@ -3,42 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css"/> 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
     <title>RPS</title>
 </head>
 
 <body>
-    <div class="health">
-        <div class="health-bar">
-            <span class="health-status">
-                <span class="remaining-health">3</span>/3
-            </span>
-        </div>
-
-        <div class="health-bar">
-            <span class="health-status">
-                <span class="remaining-health">3</span>/3
-            </span>
-        </div>
-    </div>
-
-    <div class="game-window">
-        <div class="photo"><img src="./photos/" alt="Add alt"></div>
-
-        <div id="middle-info">
-
-            <div>
-                <span id="result">Choose your weapon</span>
+    <div class="page-content">
+        <div class="health">
+            <div class="health-background">
+                <progress class="health-bar" max="3" value="2">
+                    <span class="remaining-health">155as</span>
+                </progress>
             </div>
 
-            <div id="buttons">
-                <button data-move = "rock">rock</button>
-                <button data-move = "papper">papper</button>
-                <button data-move = "scissors">scissors</button> 
+            <div class="health-background">
+                <progress class="health-bar" max="3" value="2">
+                    <span class="remaining-health">155as</span>
+                </progress>
             </div>
+             
         </div>
+        
+        <div class="game-window">
+            <div class="photo"><img src="./photos/jason-leung-1DjbGRDh7-E-unsplash-removebg-preview.png" alt="WALL-E made out of lego bricks"></div>
 
-        <div class="photo"><img src="./photos/"></div>
+            <div id="middle-info">
+
+                <div class="result-text">
+                    <span id="result">Choose your weapon</span>
+                </div>
+
+                <div id="buttons">
+                    <button data-move = "rock">Rock</button>
+                    <button data-move = "papper">Papper</button>
+                    <button data-move = "scissors">Scissors</button> 
+                </div>
+            </div>
+
+            <div class="photo"><img src="./photos/austris-augusts-vhnljj9RkV8-unsplash-removebg-preview (1).png" alt="lego Superman"></div>
+        </div>
     </div>
+    
 
     <script>
         const chooseMoveButton = document.getElementsByTagName("button");
@@ -48,7 +58,11 @@
                 const playerMove = e.target.getAttribute("data-move")
                 const computerMove = getComputerMove();
 
-                //display result
+                button.classList.add("clicking");
+                button.addEventListener("transitionend", (e) => {
+                    button.classList.remove("clicking");
+                })
+
                 const resultDiv = document.getElementById("result");
                 const result = playRound(playerMove, computerMove);
                 resultDiv.textContent = result;
