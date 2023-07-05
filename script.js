@@ -39,14 +39,17 @@ function playRound (playerMove, computerMove){
     return resultText;
 }
 
-function removeHealth(playerWon, computerWon) {
+function removeHealth(playerLost, computerLost) {
     const playerHealthBar = document.getElementById("player-health");
     const computerHealthBar = document.getElementById("computer-health");
 
     if(+computerHealthBar.value <= 0 || +computerHealthBar.value <= 0) return;
-    else if(playerWon) {
+    if(computerLost && playerLost) {
         computerHealthBar.value -= 1;
-    } else if(computerWon) {
+        playerHealthBar.value -= 1;
+    } else if(computerLost) {
+        computerHealthBar.value -= 1;
+    } else if(playerLost) {
         playerHealthBar.value -= 1;
     }
 
